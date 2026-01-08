@@ -18,13 +18,16 @@ app.use('/api/todos', todoRoutes);
 
 // Serve Static Frontend Assets (Fixes Vercel blank page)
 const path = require('path');
-const staticPath = path.join(__dirname, '../client/dist');
-console.log('Serving static files from:', staticPath);
+// Use process.cwd() which is safer in Vercel environment than __dirname
+const staticPath = path.join(process.cwd(), 'client', 'dist');
+console.log('Serving static files from (cwd):', staticPath);
 app.use(express.static(staticPath));
 
 // Handle React Routing (SPA) - Send all other requests to index.html
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../client/dist/index.html'));
+    const indexPath = path.join(staticPath, 'index.html');
+    console.log('Serving index.html from:', indexPath);
+    res.sendFile(indexPath);
 });
 
 const PORT = process.env.PORT || 5000;
