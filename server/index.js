@@ -18,7 +18,9 @@ app.use('/api/todos', todoRoutes);
 
 // Serve Static Frontend Assets (Fixes Vercel blank page)
 const path = require('path');
-app.use(express.static(path.join(__dirname, '../client/dist')));
+const staticPath = path.join(__dirname, '../client/dist');
+console.log('Serving static files from:', staticPath);
+app.use(express.static(staticPath));
 
 // Handle React Routing (SPA) - Send all other requests to index.html
 app.get('*', (req, res) => {
