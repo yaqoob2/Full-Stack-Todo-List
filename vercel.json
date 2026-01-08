@@ -1,5 +1,6 @@
 {
     "version": 2,
+    "buildCommand": "cd client && npm install && npm run build && cd ../server && npm install && mkdir -p dist && cp -r ../client/dist ./dist",
     "builds": [
         {
             "src": "server/index.js",
